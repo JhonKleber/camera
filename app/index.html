@@ -23,24 +23,62 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <div class="event received">
-                  <p>Device is Ready</p>
-                </div>
-
-                <button onclick="app.takePicture();">Take Picture</button>
-            </div>
-        </div>
+        
+        <!--chamada jquery mobile-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
+            window.onload = function () {
+   var UI = new UbuntuUI();
+   UI.init();
+/* HERE’S THE NEW CODE: */
+   document.addEventListener("deviceready", function() {
+       if (console && console.log)
+           console.log('Platform layer API ready');
+       //hide the loading div and display the loaded div
+       document.getElementById("loading").style.display = "none";
+       document.getElementById("loaded").style.display = "block";
+       // event listener to take picture
+       UI.button("click").click( function() {
+            navigator.camera.getPicture(onSuccess, onFail, {
+                quality: 100,
+                targetWidth: 400,
+                targetHeight: 400,
+                destinationType: Camera.DestinationType.DATA_URL,
+                correctOrientation: true
+            });
+          console.log("Take Picture button clicked");
+       }); // "click" button event handler
+     }, false); // deviceready event handler
+/* END OF NEW CODE */
+};
         </script>
-    </body>
+        
+        <title>Camera App</title>
+    </head>
+    <body>
+  <div data-role="mainview">
+    <header data-role="header">
+      <ul data-role="tabs">
+        <li data-role="tabitem" data-page="camera">Camera</li>
+      </ul>
+    </header>
+    <div data-role="content">
+      <div data-role="tab" id="camera">
+         <div id="loading">
+           <header>Loading...</header>
+           <progress>Loading...</progress>
+         </div>
+         <div id="loaded" style="display:none;">
+           <button data-role="button" id="click">Take Picture</button>
+           <img id="image" src=""/>
+         </div>
+      </div> <!-- camera -->
+    </div> <!-- content -->
+  </div> <!-- mainview -->
+</body>
 </html>

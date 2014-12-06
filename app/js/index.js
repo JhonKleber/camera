@@ -59,4 +59,5 @@ var app = {
         destinationType: Camera.DestinationType.FILE_URI
       });
     }
+    
 };
