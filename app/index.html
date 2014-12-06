@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
@@ -32,53 +14,10 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            window.onload = function () {
-   var UI = new UbuntuUI();
-   UI.init();
-/* HERE’S THE NEW CODE: */
-   document.addEventListener("deviceready", function() {
-       if (console && console.log)
-           console.log('Platform layer API ready');
-       //hide the loading div and display the loaded div
-       document.getElementById("loading").style.display = "none";
-       document.getElementById("loaded").style.display = "block";
-       // event listener to take picture
-       UI.button("click").click( function() {
-            navigator.camera.getPicture(onSuccess, onFail, {
-                quality: 100,
-                targetWidth: 400,
-                targetHeight: 400,
-                destinationType: Camera.DestinationType.DATA_URL,
-                correctOrientation: true
-            });
-          console.log("Take Picture button clicked");
-       }); // "click" button event handler
-     }, false); // deviceready event handler
-/* END OF NEW CODE */
-};
+            app.initialize();
         </script>
         
         <title>Camera App</title>
     </head>
-    <body>
-  <div data-role="mainview">
-    <header data-role="header">
-      <ul data-role="tabs">
-        <li data-role="tabitem" data-page="camera">Camera</li>
-      </ul>
-    </header>
-    <div data-role="content">
-      <div data-role="tab" id="camera">
-         <div id="loading">
-           <header>Loading...</header>
-           <progress>Loading...</progress>
-         </div>
-         <div id="loaded" style="display:none;">
-           <button data-role="button" id="click">Take Picture</button>
-           <img id="image" src=""/>
-         </div>
-      </div> <!-- camera -->
-    </div> <!-- content -->
-  </div> <!-- mainview -->
-</body>
+    
 </html>
